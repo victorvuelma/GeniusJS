@@ -1,25 +1,27 @@
 let ordem = [];
 let ordemClicada = [];
 
+let pontos = 0;
+
 // 0 - VERDE
 // 1 - VERMELHO
 // 2 - AMARELO
 // 3 - AZUL
 
 // SELECIONANDO OS ELEMENTOS HTML A PARTIR DA CLASSE
-let azul = document.querySelector(".azul");
-let vermelho = document.querySelector(".vermelho");
-let verde = document.querySelector(".verde");
-let amarelo = document.querySelector(".amarelo");
+let azul = document.querySelector("#azul");
+let vermelho = document.querySelector("#vermelho");
+let verde = document.querySelector("#verde");
+let amarelo = document.querySelector("#amarelo");
 
 let gerarOrdem = () => {
     // GERAR NUMERO DE 0 A 3
     let proximo = Math.floor(Math.random() * 4);
-
+    
     // ATRIBUI O NUMERO AO PROXIMO DA ORDEM 
     ordem[ordem.length] = proximo;
     ordemClicada = [];
-
+    
     // ACENDE A ORDEM GERADA
     for (let i in ordem) {
         let elementoDiv = elemento(ordem[i]);
@@ -27,7 +29,7 @@ let gerarOrdem = () => {
     }
 }
 
-    //ACENDE O ELEMENTO EM SEQUENCIA
+//ACENDE O ELEMENTO EM SEQUENCIA
 let acender = (elementoDiv, tempo) => {
     tempo = tempo * 500;
     setTimeout(() => {
@@ -47,7 +49,7 @@ let compararOrdem = () => {
         }
     }
     if (ordemClicada.length == ordem.length) {
-        alert("Você acertou! Bora para o próximo nível!");
+        alert(`Pontuação: ${pontos}!\nVocê acertou! Iniciando próximo nível!`);
         proximo();
     }
 }
@@ -56,10 +58,10 @@ let compararOrdem = () => {
 let clicou = (cor) => {
     ordemClicada[ordemClicada.length] = cor;
     elemento(cor).classList.add("selecionado");
-
+    
     setTimeout(() => {
         elemento(cor).classList.remove("selecionado");
-
+        
         compararOrdem();
     }, 250);
 }
@@ -77,21 +79,25 @@ let elemento = (cor) => {
 }
 
 let proximo = () => {
+    pontos++;
+    
     gerarOrdem();
 }
 
 let perdeu = () => {
-    alert("Você perdeu o jogo! Clique em OK para iniciar um novo jogo");
-
+    alert(`Pontuação: ${pontos}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo.`);
+    
     ordem = [];
     ordemClicada = [];
-
+    
     iniciar();
 }
 
 let iniciar = () => {
     alert("Iniciando novo jogo!");
-
+    
+    pontos = 0;
+    
     proximo();
 }
 
