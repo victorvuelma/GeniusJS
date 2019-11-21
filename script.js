@@ -9,28 +9,28 @@ let pontos = 0;
 // 3 - AZUL
 
 // SELECIONANDO OS ELEMENTOS HTML A PARTIR DA CLASSE
-let azul = document.querySelector("#azul");
-let vermelho = document.querySelector("#vermelho");
-let verde = document.querySelector("#verde");
-let amarelo = document.querySelector("#amarelo");
+const azul = document.querySelector("#azul");
+const vermelho = document.querySelector("#vermelho");
+const verde = document.querySelector("#verde");
+const amarelo = document.querySelector("#amarelo");
+const pontosDiv = document.querySelector("#pontos");
 
-let gerarOrdem = () => {
+const gerarOrdem = () => {
     // GERAR NUMERO DE 0 A 3
-    let proximo = Math.floor(Math.random() * 4);
-    
+    const proximo = Math.floor(Math.random() * 4);
+
     // ATRIBUI O NUMERO AO PROXIMO DA ORDEM 
     ordem[ordem.length] = proximo;
     ordemClicada = [];
-    
+
     // ACENDE A ORDEM GERADA
-    for (let i in ordem) {
-        let elementoDiv = elemento(ordem[i]);
-        acender(elementoDiv, Number(i) + 1);
+    for (const i in ordem) {
+        acender(elemento(ordem[i]), Number(i) + 1);
     }
 }
 
 //ACENDE O ELEMENTO EM SEQUENCIA
-let acender = (elementoDiv, tempo) => {
+const acender = (elementoDiv, tempo) => {
     tempo = tempo * 500;
     setTimeout(() => {
         elementoDiv.classList.add('selecionado');
@@ -41,32 +41,34 @@ let acender = (elementoDiv, tempo) => {
 }
 
 //
-let compararOrdem = () => {
-    for (let i in ordemClicada) {
+const compararOrdem = () => {
+    for (const i in ordemClicada) {
         if (ordemClicada[i] != ordem[i]) {
             perdeu();
             break;
         }
     }
-    if (ordemClicada.length == ordem.length) {
+    if (ordemClicada.length === ordem.length) {
+        pontos++;
+
         alert(`Pontuação: ${pontos}!\nVocê acertou! Iniciando próximo nível!`);
         proximo();
     }
 }
 
 // CHAMADO QUANDO O USUARIO CLICA EM UMA DAS DIVS
-let clicou = (cor) => {
+const clicou = (cor) => {
     ordemClicada[ordemClicada.length] = cor;
     elemento(cor).classList.add("selecionado");
-    
+
     setTimeout(() => {
         elemento(cor).classList.remove("selecionado");
-        
+
         compararOrdem();
     }, 250);
 }
 
-let elemento = (cor) => {
+const elemento = (cor) => {
     if (cor == 0) {
         return verde;
     } else if (cor == 1) {
@@ -78,27 +80,32 @@ let elemento = (cor) => {
     }
 }
 
-let proximo = () => {
-    pontos++;
-    
+const proximo = () => {
+    renderPontos();
+
     gerarOrdem();
 }
 
-let perdeu = () => {
+const perdeu = () => {
     alert(`Pontuação: ${pontos}!\nVocê perdeu o jogo!\nClique em OK para iniciar um novo jogo.`);
-    
+
     ordem = [];
     ordemClicada = [];
-    
+
     iniciar();
 }
 
-let iniciar = () => {
+const iniciar = () => {
     alert("Iniciando novo jogo!");
-    
+
     pontos = 0;
-    
+    renderPontos();
+
     proximo();
+}
+
+const renderPontos = () => {
+    pontosDiv.innerHTML = pontos;
 }
 
 verde.onclick = () => clicou(0)

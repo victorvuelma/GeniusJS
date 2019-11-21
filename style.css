@@ -1,12 +1,17 @@
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    background-color: rgba(0, 0, 0, 0.85);
+body {
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
 }
 
 body>div:first-child {
     height: 100vh;
-    width: 100vw;
+    min-width: 90vh;
 
     display: flex;
     justify-content: center;
@@ -16,50 +21,69 @@ body>div:first-child {
 #genius {
     display: grid;
     grid-template-areas: 'verde vermelho'
-        'amarelo azul';
-    grid-gap: 10px;
+        'amarelo azul'; 
+    grid-gap: 40px;
 
-    border: 10px solid white;
-    background-color: white;
-    border-radius: 25%;
+    border: 30px solid #000000;
+    background-color: #000000;
+    border-radius: 45%;
 
-    width: 700px;
-    height: 700px;
-}
-
-#azul {
-    grid-area: azul;
-    background-color: blue;
-    border-bottom-right-radius: 50%;
-}
-
-#vermelho {
-    grid-area: vermelho;
-    background-color: red;
-    border-top-right-radius: 50%;
-}
-
-#amarelo {
-    grid-area: amarelo;
-    background-color: yellow;
-    border-bottom-left-radius: 50%;
+    width: 90vh;
+    height: 90vh;
 }
 
 #verde {
     grid-area: verde;
     background-color: green;
-    border-top-left-radius: 50%;
+    border-radius: 100% 10% 0 10%;
+}
+
+#vermelho {
+    grid-area: vermelho;
+    background-color: red;
+    border-radius: 10% 100% 10% 0;
+}
+
+#azul {
+    grid-area: azul;
+    background-color: blue;
+    border-radius: 0 10% 100% 10%;
+}
+
+#amarelo {
+    grid-area: amarelo;
+    background-color: yellow;
+    border-radius: 10% 0 10% 100%;
+}
+
+#centro {
+    position: absolute;
+    margin: 20vh 0 0 20vh;
+    width: 40vh;
+    height: 40vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    border: 4vh solid black;
+    border-radius: 50%;
+    background-color: #7f7f7f;
+
+    color: white;
+}
+
+h1 {
+    font-size: 45pt;
+    margin-top: 25px;
+}
+
+h2 {
+    font-size: 25pt;
 }
 
 .selecionado {
     opacity: 0.8;
-}
-
-@media(max-width: 800px) {
-    #genius {
-        grid-gap: 5px;
-        width: 350px;
-        height: 350px;
-        border: 5px solid white;
-    }
 }
