@@ -2,6 +2,7 @@ let ordem = [];
 let ordemClicada = [];
 
 let pontos = 0;
+let rodando = true;
 
 // 0 - VERDE
 // 1 - VERMELHO
@@ -14,8 +15,15 @@ const vermelho = document.querySelector("#vermelho");
 const verde = document.querySelector("#verde");
 const amarelo = document.querySelector("#amarelo");
 const pontosDiv = document.querySelector("#pontos");
+const centro = document.querySelector("#centro");
+const cores = [verde, vermelho, amarelo, azul];
+
 
 const gerarOrdem = () => {
+    rodando = true;
+
+    cores.forEach(cor => cor.classList.remove('selecionado'));
+
     // GERAR NUMERO DE 0 A 3
     const proximo = Math.floor(Math.random() * 4);
 
@@ -27,6 +35,10 @@ const gerarOrdem = () => {
     for (const i in ordem) {
         acender(elemento(ordem[i]), Number(i) + 1);
     }
+
+    setTimeout(() => {
+        elementoDiv.classList.remove('selecionado');
+    }, ordem.length * 500);
 }
 
 //ACENDE O ELEMENTO EM SEQUENCIA
@@ -108,9 +120,35 @@ const renderPontos = () => {
     pontosDiv.innerHTML = pontos;
 }
 
+const resetar = () => {
+    if (confirm('Você deseja realmente recomeçar?')) {
+        iniciar();
+    }
+}
+
+const mouseEnter = (e) => {
+    if (!rodando) {
+        e.target.classList.add('selecionado');
+    }
+}
+
+const mouseLeave = (e) => {
+    if (!rodando) {
+        e.target.classList.remove('selecionado');
+    }
+}
+
 verde.onclick = () => clicou(0)
 vermelho.onclick = () => clicou(1)
 amarelo.onclick = () => clicou(2)
 azul.onclick = () => clicou(3)
+centro.onclick = resetar
+
+
+cores.forEach(cor => {
+    cor.onmouseenter = mouseEnter
+    cor.onmouseleave = mouseLeave
+})
+
 
 iniciar();

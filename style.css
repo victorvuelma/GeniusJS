@@ -11,7 +11,6 @@ body {
 
 body>div:first-child {
     height: 100vh;
-    min-width: 90vh;
 
     display: flex;
     justify-content: center;
@@ -54,6 +53,10 @@ body>div:first-child {
     grid-area: amarelo;
     background-color: yellow;
     border-radius: 10% 0 10% 100%;
+}
+
+#verde, #vermelho, #azul, #amarelo, #centro {
+    cursor: pointer;
 }
 
 #centro {
